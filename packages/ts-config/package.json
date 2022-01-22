@@ -1,0 +1,24 @@
+{
+  "name": "@disguard/ts-config",
+  "description": "Typescript configuration file for disguard.org.",
+  "author": "Disguard <contact@disguard.org>",
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "version": "1.0.0",
+  "files": [
+    "dist",
+    "!dist/*.tsbuildinfo"
+  ],
+  "engines": {
+    "node": ">=v14.0.0",
+    "npm": ">=7.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t3ned/disguard.git",
+    "directory": "packages/ts-config"
+  },
+  "dependencies": {
+    "typescript": "^4.5.2"
+  }
+}
