@@ -1,0 +1,7 @@
+{
+  "conventionalCommits.scopes": [
+    "ts-config",
+    "prettier-config",
+    "eslint-config"
+  ]
+}
