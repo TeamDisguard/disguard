@@ -1,0 +1,3 @@
+{
+  "extends": "./packages/ts-config/src/tsconfig.json"
+}
