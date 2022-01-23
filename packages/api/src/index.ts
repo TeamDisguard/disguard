@@ -1,8 +1,15 @@
 import "dotenv/config";
-import "module-alias/register";
 
-import { Logger } from "./lib/utils/Logger";
-import { v1Router } from "./lib";
+import moduleAias from "module-alias";
+import path from "path";
+
+moduleAias.addAliases({
+  "#lib": path.join(__dirname, "lib"),
+  "#config": path.join(__dirname, "config.js"),
+  "#consts": path.join(__dirname, "constants.js")
+});
+
+import { Logger, v1Router } from "#lib";
 import express from "express";
 import useragent from "express-useragent";
 import cors from "cors";
