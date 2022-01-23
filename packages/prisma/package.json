@@ -18,6 +18,11 @@
     "url": "git+https://github.com/t3ned/disguard.git",
     "directory": "packages/prisma"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "@prisma/client": "^3.8.1"
+  },
+  "devDependencies": {
+    "prisma": "^3.8.1",
+    "prisma-erd-generator": "^0.8.1"
+  }
 }
