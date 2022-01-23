@@ -8,6 +8,7 @@
     "token-engine",
     "prisma",
     "redis",
-    "logger"
+    "logger",
+    "database"
   ]
 }
