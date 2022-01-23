@@ -19,7 +19,9 @@
     "url": "git+https://github.com/t3ned/disguard.git",
     "directory": "packages/database"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@disguard/prisma": "^1.0.0"
+  },
   "devDependencies": {
     "typescript": "^4.5.2"
   }
