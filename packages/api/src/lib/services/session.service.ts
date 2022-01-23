@@ -47,6 +47,14 @@ export const getSessionById = (id: string) => {
   });
 };
 
+export const getSessionsForUser = (userId: string) => {
+  return Database.client().session.findMany({
+    where: {
+      userId
+    }
+  });
+};
+
 export interface SessionData {
   userId: string;
   accessToken: string;
