@@ -15,6 +15,7 @@ import { port } from "#config";
 
 import express from "express";
 import useragent from "express-useragent";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 
 const app = express();
@@ -36,6 +37,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Parse user agent
 app.use(useragent.express());
+
+// Parse cookies
+app.use(cookieParser());
 
 // Register v1 api routes
 app.use("/api/v1", v1Router);
