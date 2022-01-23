@@ -1,4 +1,6 @@
 import { createHash } from "crypto";
+import { hash, compare } from "bcrypt";
+import { SALT_ROUNDS } from "../constants";
 
 export type shaAlgorithm = "sha1" | "sha256" | "sha384" | "sha512";
 
@@ -47,4 +49,21 @@ export const sha384 = (data: string, length?: number): string => {
  */
 export const sha512 = (data: string, length?: number): string => {
   return sha("sha512", data, length);
+};
+
+/**
+ * Hashes data using the bcrypt algorithm
+ * @param data The data to hash
+ */
+export const bcryptHash = (data: string): Promise<string> => {
+  return hash(data, SALT_ROUNDS);
+};
+
+/**
+ * Compares data to a hash
+ * @param data The data to compare
+ * @param hash The hashed data
+ */
+export const bcryptCompare = (data: string, hash: string): Promise<boolean> => {
+  return compare(data, hash);
 };
