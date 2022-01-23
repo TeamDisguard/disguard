@@ -18,7 +18,14 @@
     "url": "git+https://github.com/t3ned/disguard.git",
     "directory": "packages/api"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@disguard/database": "^1.0.0",
+    "@disguard/logger": "^1.0.0",
+    "@disguard/prisma": "^1.0.0",
+    "@disguard/redis": "^1.0.0",
+    "@disguard/snowflake-engine": "^1.0.0",
+    "@disguard/token-engine": "^1.0.0"
+  },
   "devDependencies": {
     "typescript": "^4.5.2"
   }
