@@ -57,7 +57,7 @@ export const callback = catchServerError(async (req, res) => {
   res.cookie("session", session.token, {
     path: "/",
     httpOnly: true,
-    maxAge: auth.expires_in
+    maxAge: auth.expires_in * 1000
   });
 
   res.redirect("/");
@@ -72,6 +72,20 @@ export const getMe = catchServerError(async (_req, res, next) => {
     .set("device", session.device)
     .set("expires_at", session.expiresAt.toISOString())
     .set("created_at", session.createdAt.toISOString());
+
+  return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
+});
+
+export const getMeSessions = catchServerError(async (_req, res, next) => {
+  const sessions = await sessionService.getSessionsForUser(res.locals.userId);
+  if (!sessions.length) return next(new ApiError(HttpCodes.Unauthorized));
+
+  const data = sessions.map((session) => ({
+    id: session.id,
+    device: session.device,
+    expires_at: session.expiresAt.toISOString(),
+    created_at: session.createdAt.toISOString()
+  }));
 
   return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
 });
