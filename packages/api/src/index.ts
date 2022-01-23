@@ -9,7 +9,8 @@ moduleAias.addAliases({
   "#consts": path.join(__dirname, "constants.js")
 });
 
-import { Logger, v1Router } from "#lib";
+import { Logger, v1Router, ApiError, convertError, handleError } from "#lib";
+import { HttpCodes } from "#consts";
 import { port } from "#config";
 
 import express from "express";
@@ -39,10 +40,18 @@ app.use(useragent.express());
 // Register v1 api routes
 app.use("/api/v1", v1Router);
 
-// TODO: handle 404 error
+// Handle 404 Not Found errors
+app.use((_req, _res, next) => {
+  next(new ApiError(HttpCodes.NotFound));
+});
 
-// TODO: error handler
+// Convert errors into ApiErrors
+app.use(convertError);
 
+// Handle errors
+app.use(handleError);
+
+// Start app
 app.listen(port, () => {
   Logger.info(`Listening on http://localhost:${port}`);
 });
