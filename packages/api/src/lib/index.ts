@@ -9,5 +9,6 @@ export { default as v1Router } from "./routes/v1";
 
 // utils
 export * from "./utils/ApiError";
+export * from "./utils/ApiResponse";
 export * from "./utils/ApiResponseJson";
 export * from "./utils/Logger";
