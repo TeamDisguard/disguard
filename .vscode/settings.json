@@ -5,6 +5,7 @@
     "eslint-config",
     "snowflake-engine",
     "crypto",
-    "token-engine"
+    "token-engine",
+    "prisma"
   ]
 }
