@@ -2,6 +2,7 @@ import "dotenv/config";
 import "module-alias/register";
 
 import { Logger } from "./lib/utils/Logger";
+import { v1Router } from "./lib";
 import express from "express";
 import useragent from "express-useragent";
 import cors from "cors";
@@ -27,7 +28,8 @@ app.use(express.urlencoded({ extended: true }));
 // Parse user agent
 app.use(useragent.express());
 
-// TODO: /api/v1
+// Register v1 api routes
+app.use("/api/v1", v1Router);
 
 // TODO: handle 404 error
 
