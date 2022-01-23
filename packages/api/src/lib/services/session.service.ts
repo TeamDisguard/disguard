@@ -39,6 +39,14 @@ export const getSession = (userId: string, version: string) => {
   });
 };
 
+export const getSessionById = (id: string) => {
+  return Database.client().session.findUnique({
+    where: {
+      id
+    }
+  });
+};
+
 export interface SessionData {
   userId: string;
   accessToken: string;
