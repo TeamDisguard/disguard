@@ -55,6 +55,17 @@ export const getSessionsForUser = (userId: string) => {
   });
 };
 
+export const deleteSession = async (userId: string, id: string) => {
+  const session = await getSessionById(id);
+  if (!session || session.userId !== userId) return null;
+
+  return Database.client().session.delete({
+    where: {
+      id
+    }
+  });
+};
+
 export interface SessionData {
   userId: string;
   accessToken: string;
