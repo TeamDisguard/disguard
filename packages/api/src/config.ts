@@ -3,6 +3,7 @@ import os from "os";
 
 export const requiredEnvVariables = [
   "HOST",
+  "ENCRYPTION_KEY",
   "DISCORD_TOKEN",
   "DISCORD_CLIENT_ID",
   "DISCORD_CLIENT_SECRET"
@@ -22,6 +23,7 @@ declare global {
       NODE_ENV?: "production" | "development";
       PORT?: string;
       HOST: string;
+      ENCRYPTION_KEY: string;
       DISCORD_TOKEN: string;
       DISCORD_CLIENT_ID: string;
       DISCORD_CLIENT_SECRET: string;
@@ -34,6 +36,8 @@ export const serverName = os.hostname();
 
 export const port = process.env.PORT ?? "3000";
 export const host = process.env.HOST;
+
+export const encryptionKey = process.env.ENCRYPTION_KEY;
 
 export const discord = {
   token: process.env.DISCORD_TOKEN,
