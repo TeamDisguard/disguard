@@ -1,0 +1,26 @@
+{
+  "name": "@disguard/logger",
+  "description": "Logger helper for storing logs.",
+  "author": "Disguard <contact@disguard.org>",
+  "main": "dist/index.js",
+  "types": "dist/types",
+  "license": "Apache-2.0",
+  "version": "1.0.0",
+  "files": [
+    "dist",
+    "!dist/*.tsbuildinfo"
+  ],
+  "engines": {
+    "node": ">=v14.0.0",
+    "npm": ">=7.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t3ned/disguard.git",
+    "directory": "packages/logger"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^4.5.2"
+  }
+}
