@@ -12,6 +12,7 @@ export * from "./utils/GetDevice";
 export * from "./utils/Logger";
 
 // middlewares
+export * from "./middlewares/auth";
 export * from "./middlewares/error";
 
 // services
