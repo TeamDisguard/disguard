@@ -6,7 +6,7 @@ export class ApiResponse<T = unknown | unknown[]> {
   /**
    * The json data
    */
-  public data?: ApiResponseJson<T>;
+  public data?: ApiResponseJson<T> | T[];
 
   /**
    * @param status The response status code
@@ -18,7 +18,7 @@ export class ApiResponse<T = unknown | unknown[]> {
    * Set the json data
    * @param data The json data
    */
-  public setData(data: ApiResponseJson<T>): this {
+  public setData(data: ApiResponseJson<T> | T[]): this {
     this.data = data;
     return this;
   }
@@ -28,6 +28,9 @@ export class ApiResponse<T = unknown | unknown[]> {
    */
   public send(): void {
     if (!this.data) return void this._res.sendStatus(this.status);
-    return void this._res.status(this.status).json(this.data.toJSON());
+
+    return void this._res
+      .status(this.status)
+      .json(Array.isArray(this.data) ? this.data : this.data.toJSON());
   }
 }

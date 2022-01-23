@@ -8,5 +8,6 @@ router.get("/login", authController.login);
 router.get("/callback", authController.callback);
 
 router.get("/@me", auth, authController.getMe);
+router.get("/@me/sessions", auth, authController.getMeSessions);
 
 export default router;
