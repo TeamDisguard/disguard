@@ -37,6 +37,7 @@ export type Session = {
   accessToken: string
   refreshToken: string
   token: string
+  version: string
   createdAt: Date
   expiresAt: Date
   userId: string
@@ -1948,6 +1949,7 @@ export namespace Prisma {
     accessToken: string | null
     refreshToken: string | null
     token: string | null
+    version: string | null
     createdAt: Date | null
     expiresAt: Date | null
     userId: string | null
@@ -1960,6 +1962,7 @@ export namespace Prisma {
     accessToken: string | null
     refreshToken: string | null
     token: string | null
+    version: string | null
     createdAt: Date | null
     expiresAt: Date | null
     userId: string | null
@@ -1972,6 +1975,7 @@ export namespace Prisma {
     accessToken: number
     refreshToken: number
     token: number
+    version: number
     createdAt: number
     expiresAt: number
     userId: number
@@ -1986,6 +1990,7 @@ export namespace Prisma {
     accessToken?: true
     refreshToken?: true
     token?: true
+    version?: true
     createdAt?: true
     expiresAt?: true
     userId?: true
@@ -1998,6 +2003,7 @@ export namespace Prisma {
     accessToken?: true
     refreshToken?: true
     token?: true
+    version?: true
     createdAt?: true
     expiresAt?: true
     userId?: true
@@ -2010,6 +2016,7 @@ export namespace Prisma {
     accessToken?: true
     refreshToken?: true
     token?: true
+    version?: true
     createdAt?: true
     expiresAt?: true
     userId?: true
@@ -2101,6 +2108,7 @@ export namespace Prisma {
     accessToken: string
     refreshToken: string
     token: string
+    version: string
     createdAt: Date
     expiresAt: Date
     userId: string
@@ -2130,6 +2138,7 @@ export namespace Prisma {
     accessToken?: boolean
     refreshToken?: boolean
     token?: boolean
+    version?: boolean
     createdAt?: boolean
     expiresAt?: boolean
     userId?: boolean
@@ -6442,6 +6451,7 @@ export namespace Prisma {
     accessToken: 'accessToken',
     refreshToken: 'refreshToken',
     token: 'token',
+    version: 'version',
     createdAt: 'createdAt',
     expiresAt: 'expiresAt',
     userId: 'userId'
@@ -6602,6 +6612,7 @@ export namespace Prisma {
     accessToken?: StringFilter | string
     refreshToken?: StringFilter | string
     token?: StringFilter | string
+    version?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     expiresAt?: DateTimeFilter | Date | string
     userId?: StringFilter | string
@@ -6615,6 +6626,7 @@ export namespace Prisma {
     accessToken?: SortOrder
     refreshToken?: SortOrder
     token?: SortOrder
+    version?: SortOrder
     createdAt?: SortOrder
     expiresAt?: SortOrder
     userId?: SortOrder
@@ -6632,6 +6644,7 @@ export namespace Prisma {
     accessToken?: SortOrder
     refreshToken?: SortOrder
     token?: SortOrder
+    version?: SortOrder
     createdAt?: SortOrder
     expiresAt?: SortOrder
     userId?: SortOrder
@@ -6650,6 +6663,7 @@ export namespace Prisma {
     accessToken?: StringWithAggregatesFilter | string
     refreshToken?: StringWithAggregatesFilter | string
     token?: StringWithAggregatesFilter | string
+    version?: StringWithAggregatesFilter | string
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     expiresAt?: DateTimeWithAggregatesFilter | Date | string
     userId?: StringWithAggregatesFilter | string
@@ -7001,6 +7015,7 @@ export namespace Prisma {
     accessToken: string
     refreshToken: string
     token: string
+    version: string
     createdAt?: Date | string
     expiresAt: Date | string
     user: UserCreateNestedOneWithoutSessionsInput
@@ -7013,6 +7028,7 @@ export namespace Prisma {
     accessToken: string
     refreshToken: string
     token: string
+    version: string
     createdAt?: Date | string
     expiresAt: Date | string
     userId: string
@@ -7025,6 +7041,7 @@ export namespace Prisma {
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSessionsInput
@@ -7037,6 +7054,7 @@ export namespace Prisma {
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -7049,6 +7067,7 @@ export namespace Prisma {
     accessToken: string
     refreshToken: string
     token: string
+    version: string
     createdAt?: Date | string
     expiresAt: Date | string
     userId: string
@@ -7061,6 +7080,7 @@ export namespace Prisma {
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7072,6 +7092,7 @@ export namespace Prisma {
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -7590,6 +7611,7 @@ export namespace Prisma {
     accessToken?: SortOrder
     refreshToken?: SortOrder
     token?: SortOrder
+    version?: SortOrder
     createdAt?: SortOrder
     expiresAt?: SortOrder
     userId?: SortOrder
@@ -7602,6 +7624,7 @@ export namespace Prisma {
     accessToken?: SortOrder
     refreshToken?: SortOrder
     token?: SortOrder
+    version?: SortOrder
     createdAt?: SortOrder
     expiresAt?: SortOrder
     userId?: SortOrder
@@ -7614,6 +7637,7 @@ export namespace Prisma {
     accessToken?: SortOrder
     refreshToken?: SortOrder
     token?: SortOrder
+    version?: SortOrder
     createdAt?: SortOrder
     expiresAt?: SortOrder
     userId?: SortOrder
@@ -8448,6 +8472,7 @@ export namespace Prisma {
     accessToken: string
     refreshToken: string
     token: string
+    version: string
     createdAt?: Date | string
     expiresAt: Date | string
   }
@@ -8459,6 +8484,7 @@ export namespace Prisma {
     accessToken: string
     refreshToken: string
     token: string
+    version: string
     createdAt?: Date | string
     expiresAt: Date | string
   }
@@ -8646,6 +8672,7 @@ export namespace Prisma {
     accessToken?: StringFilter | string
     refreshToken?: StringFilter | string
     token?: StringFilter | string
+    version?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     expiresAt?: DateTimeFilter | Date | string
     userId?: StringFilter | string
@@ -9401,6 +9428,7 @@ export namespace Prisma {
     accessToken: string
     refreshToken: string
     token: string
+    version: string
     createdAt?: Date | string
     expiresAt: Date | string
   }
@@ -9450,6 +9478,7 @@ export namespace Prisma {
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9461,6 +9490,7 @@ export namespace Prisma {
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9472,6 +9502,7 @@ export namespace Prisma {
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
+    version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

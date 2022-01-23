@@ -93,6 +93,7 @@ exports.Prisma.SessionScalarFieldEnum = makeEnum({
   accessToken: 'accessToken',
   refreshToken: 'refreshToken',
   token: 'token',
+  version: 'version',
   createdAt: 'createdAt',
   expiresAt: 'expiresAt',
   userId: 'userId'

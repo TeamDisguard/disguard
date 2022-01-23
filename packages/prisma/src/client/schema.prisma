@@ -51,6 +51,7 @@ model Session {
   accessToken  String @map("access_token") @db.VarChar(97)
   refreshToken String @map("refresh_token") @db.VarChar(97)
   token        String @db.Char(60)
+  version      String @db.Char(8)
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   expiresAt DateTime @map("expires_at") @db.Timestamp()
