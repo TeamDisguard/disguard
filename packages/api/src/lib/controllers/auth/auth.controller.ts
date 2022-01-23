@@ -108,3 +108,18 @@ export const deleteMeSession = catchServerError(async (req, res, next) => {
 
   return new ApiResponse(HttpCodes.NoContent, res).send();
 });
+
+export const logout = catchServerError(async (_req, res, next) => {
+  const isDeleted = await sessionService.deleteSession(
+    res.locals.userId,
+    res.locals.sessionId
+  );
+
+  if (!isDeleted) {
+    return next(new ApiError(HttpCodes.NotFound).setInfo("Session was not found."));
+  }
+
+  res.clearCookie("session");
+
+  return new ApiResponse(HttpCodes.NoContent, res).send();
+});

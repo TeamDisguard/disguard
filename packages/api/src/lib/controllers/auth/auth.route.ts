@@ -11,5 +11,6 @@ router.get("/@me", auth, authController.getMe);
 router.get("/@me/sessions", auth, authController.getMeSessions);
 
 router.delete("/@me/sessions/:sessionId", auth, authController.deleteMeSession);
+router.post("/@me/sessions/logout", auth, authController.logout);
 
 export default router;
