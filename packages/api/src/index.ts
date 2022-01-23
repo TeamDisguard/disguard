@@ -10,12 +10,13 @@ moduleAias.addAliases({
 });
 
 import { Logger, v1Router } from "#lib";
+import { port } from "#config";
+
 import express from "express";
 import useragent from "express-useragent";
 import cors from "cors";
 
 const app = express();
-const port = process.env.PORT ?? 3000;
 
 // Enable cors
 app.use(
