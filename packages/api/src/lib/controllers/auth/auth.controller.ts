@@ -1,5 +1,7 @@
 import {
   ApiError,
+  ApiResponse,
+  ApiResponseJson,
   catchServerError,
   getDevice,
   authService,
@@ -59,4 +61,17 @@ export const callback = catchServerError(async (req, res) => {
   });
 
   res.redirect("/");
+});
+
+export const getMe = catchServerError(async (_req, res, next) => {
+  const session = await sessionService.getSessionById(res.locals.sessionId);
+  if (!session) return next(new ApiError(HttpCodes.Unauthorized));
+
+  const data = new ApiResponseJson()
+    .set("id", session.id)
+    .set("device", session.device)
+    .set("expires_at", session.expiresAt.toISOString())
+    .set("created_at", session.createdAt.toISOString());
+
+  return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
 });
