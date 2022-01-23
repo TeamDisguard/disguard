@@ -30,6 +30,15 @@ export const createSession = async (data: SessionData) => {
   return session;
 };
 
+export const getSession = (userId: string, version: string) => {
+  return Database.client().session.findFirst({
+    where: {
+      userId,
+      version
+    }
+  });
+};
+
 export interface SessionData {
   userId: string;
   accessToken: string;
