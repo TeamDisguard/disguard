@@ -2,10 +2,14 @@
 	"extends": "../ts-config/src/tsconfig.json",
 	"compilerOptions": {
 		"rootDir": "src",
+		"baseUrl": "src",
     "outDir": "dist",
 		"declaration": false,
 		"declarationMap": false,
-		"tsBuildInfoFile": "./dist/.tsbuildinfo"
+		"tsBuildInfoFile": "./dist/.tsbuildinfo",
+		"paths": {
+      "#lib": ["lib/index.ts"]
+    }
 	},
 	"include": ["src"]
 }
