@@ -20,6 +20,7 @@
     "directory": "packages/redis"
   },
   "dependencies": {
+    "@disguard/logger": "^1.0.0",
     "ioredis": "^4.28.3"
   },
   "devDependencies": {
