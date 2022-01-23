@@ -6,6 +6,7 @@
     "snowflake-engine",
     "crypto",
     "token-engine",
-    "prisma"
+    "prisma",
+    "redis"
   ]
 }
