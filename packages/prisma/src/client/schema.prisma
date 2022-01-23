@@ -1,0 +1,139 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output = "./client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRESQL_URI")
+}
+
+model User {
+  id String @id @db.VarChar(20)
+
+  username      String @db.VarChar(32)
+  discriminator String @db.Char(4)
+  avatar        String @db.VarChar(34)
+
+  sitePermissions Int @map("site_permissions") @db.Integer
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp()
+
+  sessions Session[] @relation("UserSession")
+
+  applications Application[] @relation("UserApplication")
+  application  Application?  @relation("ApplicationUser")
+
+  reports         Report[] @relation("UserReport")
+  reporterReports Report[] @relation("ReporterReport")
+
+  resolverAppeals Appeal[] @relation("AppealResolver")
+
+  @@index([id])
+  @@map("users")
+}
+
+model Session {
+  id String @id @db.VarChar(18)
+
+  invalid Boolean @db.Boolean
+  device  String  @db.VarChar(255)
+
+  accessToken  String @map("access_token") @db.VarChar(97)
+  refreshToken String @map("refresh_token") @db.VarChar(97)
+  token        String @db.Char(60)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  expiresAt DateTime @map("expires_at") @db.Timestamp()
+
+  userId String @map("user_id")
+  user   User   @relation("UserSession", fields: [userId], references: [id])
+
+  @@index([id])
+  @@map("sessions")
+}
+
+model Application {
+  id String @id @db.VarChar(18)
+
+  name String @db.VarChar(128)
+
+  requestCount        Int      @map("request_count") @db.Integer
+  requestLimit        Int      @map("request_limit") @db.Integer
+  requestLimitResetAt DateTime @map("request_limit_reset_at") @db.Timestamp()
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp()
+
+  ownerId String @map("owner_id") @db.VarChar(20)
+  owner   User   @relation("UserApplication", fields: [ownerId], references: [id])
+
+  userId String @unique @map("user_id") @db.VarChar(20)
+  user   User   @relation("ApplicationUser", fields: [userId], references: [id])
+
+  @@index([id, name])
+  @@map("applications")
+}
+
+model Flag {
+  id String @id @db.VarChar(18)
+
+  name        String @unique @db.VarChar(128)
+  description String @db.VarChar(255)
+  color       Int    @db.Integer
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp()
+
+  reports Report[] @relation("ReportFlag")
+
+  @@index([id, name])
+  @@map("flags")
+}
+
+model Report {
+  id String @id @db.VarChar(18)
+
+  userId String @map("user_id") @db.VarChar(20)
+  user   User   @relation("UserReport", fields: [userId], references: [id])
+
+  reporterUserId String @map("report_user_id") @db.VarChar(20)
+  reporterUser   User   @relation("ReporterReport", fields: [reporterUserId], references: [id])
+
+  flagId String @map("flag_id") @db.VarChar(18)
+  flag   Flag   @relation("ReportFlag", fields: [flagId], references: [id])
+
+  appeal Appeal?
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp()
+
+  @@index([id, userId, reporterUserId])
+  @@map("reports")
+}
+
+model Appeal {
+  id String @id @db.VarChar(18)
+
+  reason String @db.VarChar(400)
+
+  isSuccessful   Boolean   @map("is_successful") @db.Boolean
+  resolvedReason String?   @map("resolved_reason") @db.VarChar(400)
+  resolvedAt     DateTime? @map("resolved_at") @db.Timestamp()
+
+  resolverUserId String @map("resolver_user_id") @db.VarChar(20)
+  resolverUser   User   @relation("AppealResolver", fields: [resolverUserId], references: [id])
+
+  reportId String @unique @map("report_id") @db.VarChar(18)
+  report   Report @relation(fields: [reportId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp()
+
+  @@index([id])
+  @@map("appeals")
+}
