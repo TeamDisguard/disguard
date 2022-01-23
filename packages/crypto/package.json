@@ -19,8 +19,11 @@
     "url": "git+https://github.com/t3ned/disguard.git",
     "directory": "packages/crypto"
   },
-  "dependencies": {},
+  "dependencies": {
+    "bcrypt": "^5.0.1"
+  },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "typescript": "^4.5.2"
   }
 }
