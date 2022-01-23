@@ -15,9 +15,15 @@ export class ApiError extends Error {
   /**
    * @param status The HTTP error code
    */
-  public constructor(status: HttpCodes) {
+  public constructor(status: HttpCodes, stack?: string) {
     super();
     this.status = status;
+
+    if (stack) {
+      this.stack = stack;
+    } else {
+      Error.captureStackTrace(this, this.constructor);
+    }
   }
 
   /**
