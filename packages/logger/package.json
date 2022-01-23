@@ -19,7 +19,10 @@
     "url": "git+https://github.com/t3ned/disguard.git",
     "directory": "packages/logger"
   },
-  "dependencies": {},
+  "dependencies": {
+    "winston": "^3.4.0",
+    "winston-daily-rotate-file": "^4.6.0"
+  },
   "devDependencies": {
     "typescript": "^4.5.2"
   }
