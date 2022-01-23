@@ -19,7 +19,9 @@
     "url": "git+https://github.com/t3ned/disguard.git",
     "directory": "packages/token-engine"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@disguard/crypto": "^1.0.0"
+  },
   "devDependencies": {
     "typescript": "^4.5.2"
   }
