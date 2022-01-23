@@ -3,6 +3,7 @@
     "ts-config",
     "prettier-config",
     "eslint-config",
-    "snowflake-engine"
+    "snowflake-engine",
+    "crypto"
   ]
 }
