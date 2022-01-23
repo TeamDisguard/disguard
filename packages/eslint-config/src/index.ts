@@ -11,7 +11,7 @@ export const eslintConfig = {
     quotes: ["error", "double"],
     semi: ["error", "always"],
     complexity: "warn",
-    camelcase: "warn",
+    camelcase: "off",
     yoda: "error",
     "accessor-pairs": "warn",
     "max-len": ["error", 200, 2],
