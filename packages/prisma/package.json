@@ -20,7 +20,8 @@
   },
   "scripts": {
     "format": "npx prisma format --schema=src/schema.prisma",
-    "migrate": "npx prisma migrate dev --schema=src/schema.prisma"
+    "migrate": "npx prisma migrate dev --schema=src/schema.prisma",
+    "generate": "npx prisma generate --schema=src/schema.prisma"
   },
   "dependencies": {
     "@prisma/client": "^3.8.1"
