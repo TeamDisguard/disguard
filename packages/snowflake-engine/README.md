@@ -1,7 +1,7 @@
 <div align="center">
 <img src="https://imgur.com/JSYF54V.png" align="center" width="40%" alt="">
 
-# @disguard/eslint-config
+# @disguard/snowflake-engine
 
 **The engine for generating unique snowflake IDs.**
 
