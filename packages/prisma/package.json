@@ -1,0 +1,23 @@
+{
+  "name": "@disguard/prisma",
+  "description": "The prisma schema for Disguard.",
+  "author": "Disguard <contact@disguard.org>",
+  "main": "src/schema.prisma",
+  "license": "Apache-2.0",
+  "version": "1.0.0",
+  "files": [
+    "dist",
+    "!dist/*.tsbuildinfo"
+  ],
+  "engines": {
+    "node": ">=v14.0.0",
+    "npm": ">=7.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t3ned/disguard.git",
+    "directory": "packages/prisma"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
