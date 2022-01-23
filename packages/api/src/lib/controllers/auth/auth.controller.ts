@@ -89,3 +89,22 @@ export const getMeSessions = catchServerError(async (_req, res, next) => {
 
   return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
 });
+
+export const deleteMeSession = catchServerError(async (req, res, next) => {
+  if (req.params.sessionId === res.locals.sessionId) {
+    return next(
+      new ApiError(HttpCodes.BadRequest).setInfo("Cannot delete current session.")
+    );
+  }
+
+  const isDeleted = await sessionService.deleteSession(
+    res.locals.userId,
+    req.params.sessionId
+  );
+
+  if (!isDeleted) {
+    return next(new ApiError(HttpCodes.NotFound).setInfo("Session was not found."));
+  }
+
+  return new ApiResponse(HttpCodes.NoContent, res).send();
+});
