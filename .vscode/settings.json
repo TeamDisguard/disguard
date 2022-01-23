@@ -9,6 +9,7 @@
     "prisma",
     "redis",
     "logger",
-    "database"
+    "database",
+    "api"
   ]
 }
