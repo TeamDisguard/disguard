@@ -1,6 +1,6 @@
 import { OAuth2Scopes } from "discord-api-types";
 import { URL, URLSearchParams } from "url";
-import { host, clientId } from "#config";
+import { host, discord } from "#config";
 
 export const endpoints = {
   authorize: "https://discord.com/api/oauth2/authorize",
@@ -15,7 +15,7 @@ export const grantTypes = {
 };
 
 const oauth2UrlParams = new URLSearchParams({
-  client_id: clientId,
+  client_id: discord.clientId,
   redirect_uri: endpoints.redirectUri,
   response_type: "code",
   scope: OAuth2Scopes.Identify
