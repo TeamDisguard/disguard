@@ -21,6 +21,7 @@ export const convertError = (
     error = err;
   } else {
     error = new ApiError(HttpCodes.InternalServerError, err.stack);
+    error.message = err.message;
     Logger.error(error);
   }
 
