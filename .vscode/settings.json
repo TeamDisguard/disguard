@@ -4,6 +4,7 @@
     "prettier-config",
     "eslint-config",
     "snowflake-engine",
-    "crypto"
+    "crypto",
+    "token-engine"
   ]
 }
