@@ -30,6 +30,7 @@
     "dotenv": "^14.2.0",
     "express": "^4.17.2",
     "express-useragent": "^1.0.15",
+    "joi": "^17.5.0",
     "module-alias": "^2.2.2"
   },
   "devDependencies": {
