@@ -1,4 +1,7 @@
-// // routes
+// errors
+export * from "./errors/MissingEnvVariableError";
+
+// routes
 export { default as v1Router } from "./routes/v1";
 
 // utils
