@@ -19,8 +19,11 @@
     "url": "git+https://github.com/t3ned/disguard.git",
     "directory": "packages/redis"
   },
-  "dependencies": {},
+  "dependencies": {
+    "ioredis": "^4.28.3"
+  },
   "devDependencies": {
+    "@types/ioredis": "^4.28.7",
     "typescript": "^4.5.2"
   }
 }
