@@ -52,10 +52,11 @@ export const callback = catchServerError(async (req, res) => {
     device: getDevice(req.useragent)
   });
 
-  res.setHeader(
-    "Set-Cookie",
-    `session=${session.token}; Max-Age=${auth.expires_in}; Path=/; HttpOnly`
-  );
+  res.cookie("session", session.token, {
+    path: "/",
+    httpOnly: true,
+    maxAge: auth.expires_in
+  });
 
   res.redirect("/");
 });
