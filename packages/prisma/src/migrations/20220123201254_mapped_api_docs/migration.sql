@@ -3,7 +3,7 @@ CREATE TABLE "users" (
     "id" VARCHAR(20) NOT NULL,
     "username" VARCHAR(32) NOT NULL,
     "discriminator" CHAR(4) NOT NULL,
-    "avatar" VARCHAR(34) NOT NULL,
+    "avatar" VARCHAR(34),
     "site_permissions" INTEGER NOT NULL,
     "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP NOT NULL,

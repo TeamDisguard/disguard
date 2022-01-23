@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "./client"
+  output   = "./client"
 }
 
 generator erd {
@@ -19,9 +19,9 @@ datasource db {
 model User {
   id String @id @db.VarChar(20)
 
-  username      String @db.VarChar(32)
-  discriminator String @db.Char(4)
-  avatar        String @db.VarChar(34)
+  username      String  @db.VarChar(32)
+  discriminator String  @db.Char(4)
+  avatar        String? @db.VarChar(34)
 
   sitePermissions Int @map("site_permissions") @db.Integer
 
