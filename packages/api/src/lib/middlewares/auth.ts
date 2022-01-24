@@ -1,6 +1,13 @@
+import {
+  ApiError,
+  SitePermissionFlagsResolvable,
+  userService,
+  sessionService,
+  SitePermissions
+} from "#lib";
+
 import type { Request, Response, NextFunction } from "express";
 import { bcryptCompare, decrypt } from "@disguard/crypto";
-import { ApiError, sessionService } from "#lib";
 import { encryptionKey } from "#config";
 import { HttpCodes } from "#consts";
 
@@ -49,4 +56,17 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
   };
 
   return next();
+};
+
+export const permissions = (permissions: SitePermissionFlagsResolvable) => {
+  return async (_req: Request, res: Response, next: NextFunction) => {
+    const user = await userService.getUser(res.locals.userId);
+    if (!user) return next(new ApiError(HttpCodes.Unauthorized));
+
+    const userPermissions = new SitePermissions(user.sitePermissions);
+    if (!userPermissions.has(permissions))
+      return next(new ApiError(HttpCodes.Unauthorized));
+
+    return next();
+  };
 };
