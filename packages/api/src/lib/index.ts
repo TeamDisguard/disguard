@@ -10,6 +10,7 @@ export * from "./utils/bitfields/SitePermissions";
 export * from "./utils/CatchServerError";
 export * from "./utils/GetDevice";
 export * from "./utils/Logger";
+export * from "./utils/Util";
 
 // middlewares
 export * from "./middlewares/auth";
