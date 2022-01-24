@@ -31,6 +31,7 @@ export enum HttpCodes {
   Unauthorized,
   Forbidden = 403,
   NotFound,
+  Conflict = 409,
   InternalServerError = 500
 }
 
@@ -39,6 +40,7 @@ export const errorCodes = {
   [HttpCodes.Unauthorized]: "unauthorized",
   [HttpCodes.Forbidden]: "forbidden",
   [HttpCodes.NotFound]: "not-found",
+  [HttpCodes.Conflict]: "conflict",
   [HttpCodes.InternalServerError]: "internal-error"
 };
 
@@ -47,6 +49,7 @@ export const errorMessages = {
   [HttpCodes.Unauthorized]: "Unauthorized",
   [HttpCodes.Forbidden]: "Forbidden",
   [HttpCodes.NotFound]: "Not Found",
+  [HttpCodes.Conflict]: "Conflict",
   [HttpCodes.InternalServerError]: "Internal Server Error"
 };
 
