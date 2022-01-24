@@ -63,9 +63,8 @@ export const callback = catchServerError(async (req, res) => {
   res.redirect("/");
 });
 
-export const getMe = catchServerError(async (_req, res, next) => {
-  const session = await sessionService.getSessionById(res.locals.sessionId);
-  if (!session) return next(new ApiError(HttpCodes.Unauthorized));
+export const getMe = catchServerError(async (_req, res) => {
+  const { session } = res.locals;
 
   const data = new ApiResponseJson()
     .set("id", session.id)

@@ -16,10 +16,15 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
   if (!isMatchedHash) return next(new ApiError(HttpCodes.Unauthorized));
 
   res.locals = {
-    sessionId: session.id,
     userId: session.userId,
     accessToken: decrypt(encryptionKey, session.accessToken),
-    refreshToken: decrypt(encryptionKey, session.refreshToken)
+    refreshToken: decrypt(encryptionKey, session.refreshToken),
+    session: {
+      id: session.id,
+      device: session.device,
+      expiresAt: session.expiresAt,
+      createdAt: session.createdAt
+    }
   };
 
   return next();
