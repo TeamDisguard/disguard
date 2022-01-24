@@ -6,11 +6,11 @@ import { HttpCodes } from "#consts";
 export const validate = (schema: ObjectSchema) => {
   /**
    * @param req The request
-   * @param _res The response
+   * @param res The response
    * @param next The next function
    */
-  return async (req: Request, _res: Response, next: NextFunction) => {
-    const { error } = joi
+  return async (req: Request, res: Response, next: NextFunction) => {
+    const { value, error } = joi
       .compile(schema)
       .prefs({ errors: { label: "key" } })
       .validate(req.query);
@@ -19,6 +19,8 @@ export const validate = (schema: ObjectSchema) => {
       return next(new ApiError(HttpCodes.BadRequest).setInfo(error.details[0].message));
     }
 
-    return next;
+    res.locals.query = value;
+
+    return next();
   };
 };
