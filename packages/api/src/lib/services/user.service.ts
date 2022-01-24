@@ -21,6 +21,14 @@ export const getSelf = async (
   }
 };
 
+export const getUser = (id: string) => {
+  return Database.client().user.findUnique({
+    where: {
+      id
+    }
+  });
+};
+
 export const upsertUser = (data: UserData): Promise<User> => {
   return Database.client().user.upsert({
     where: {
