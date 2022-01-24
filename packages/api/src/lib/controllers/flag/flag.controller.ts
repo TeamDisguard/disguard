@@ -77,7 +77,19 @@ export const updateFlag = catchServerError(async (req, res, next) => {
   });
 
   if (!isUpdated) {
-    return next(new ApiError(HttpCodes.NotFound).setInfo("Session was not found."));
+    return next(new ApiError(HttpCodes.NotFound).setInfo("Flag was not found."));
+  }
+
+  return new ApiResponse(HttpCodes.NoContent, res).send();
+});
+
+export const deleteFlag = catchServerError(async (req, res, next) => {
+  const { flagId } = req.params;
+
+  const isDeleted = await flagService.deleteFlag(flagId);
+
+  if (!isDeleted) {
+    return next(new ApiError(HttpCodes.NotFound).setInfo("Flag was not found."));
   }
 
   return new ApiResponse(HttpCodes.NoContent, res).send();

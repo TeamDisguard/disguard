@@ -24,4 +24,12 @@ router.patch(
   flagController.updateFlag
 );
 
+router.delete(
+  "/:flagId",
+  auth,
+  permissions(SitePermissionFlags.Administrator),
+  validate(updateFlagSchema),
+  flagController.deleteFlag
+);
+
 export default router;
