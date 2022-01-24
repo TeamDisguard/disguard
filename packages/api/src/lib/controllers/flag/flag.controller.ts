@@ -50,3 +50,17 @@ export const getFlag = catchServerError(async (req, res, next) => {
 
   return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
 });
+
+export const getFlags = catchServerError(async (_req, res) => {
+  const flags = await flagService.getFlags();
+
+  const data = flags.map((flag) => ({
+    id: flag.id,
+    name: flag.name,
+    description: flag.description,
+    color: flag.color,
+    created_at: flag.createdAt.toISOString()
+  }));
+
+  return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
+});

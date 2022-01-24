@@ -5,6 +5,7 @@ import { Router } from "express";
 
 const router = Router();
 
+router.get("/", auth, flagController.getFlags);
 router.get("/:flagId", auth, flagController.getFlag);
 
 router.post(
