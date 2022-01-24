@@ -50,7 +50,7 @@ export const callback = catchServerError(async (req, res) => {
     userId: user.id,
     accessToken: auth.access_token,
     refreshToken: auth.refresh_token,
-    expiresIn: auth.expires_in,
+    expiresIn: auth.expires_in * 1000,
     device: getDevice(req.useragent)
   });
 
