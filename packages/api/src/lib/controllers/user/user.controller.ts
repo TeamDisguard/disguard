@@ -37,3 +37,19 @@ export const getUser = catchServerError(async (req, res, next) => {
 
   return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
 });
+
+export const searchUser = catchServerError(async (req, res, next) => {
+  const { query } = res.locals;
+
+  const users = await userService.searchUser(query.query, query.limit);
+
+  const data = users.map((user) => ({
+    id: user.id,
+    username: user.username,
+    discriminator: user.discriminator,
+    avatar: user.avatar,
+    permissions: user.sitePermissions
+  }));
+
+  return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
+});
