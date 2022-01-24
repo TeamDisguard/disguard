@@ -76,8 +76,16 @@ export const updateFlag = catchServerError(async (req, res, next) => {
     color: query.color
   });
 
-  if (!isUpdated) {
+  if (isUpdated === null) {
     return next(new ApiError(HttpCodes.NotFound).setInfo("Flag was not found."));
+  }
+
+  if (isUpdated === undefined) {
+    return next(
+      new ApiError(HttpCodes.Conflict).setInfo(
+        `A flag with name \`${query.name}\` already exists`
+      )
+    );
   }
 
   return new ApiResponse(HttpCodes.NoContent, res).send();

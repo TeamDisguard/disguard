@@ -41,12 +41,19 @@ export const updateFlag = async (data: Partial<FlagData> & { id: string }) => {
   const flag = await getFlag(data.id);
   if (!flag) return null;
 
+  const name = toTitleCase(data.name ?? "");
+
+  if (name && flag.name !== name) {
+    const existingFlag = await getFlagByName(name);
+    if (existingFlag) return undefined;
+  }
+
   return Database.client().flag.update({
     where: {
       id: flag.id
     },
     data: {
-      name: data.name,
+      name,
       description: data.description,
       color: data.color
     }
