@@ -53,6 +53,17 @@ export const updateFlag = async (data: Partial<FlagData> & { id: string }) => {
   });
 };
 
+export const deleteFlag = async (id: string) => {
+  const flag = await getFlag(id);
+  if (!flag) return null;
+
+  return Database.client().flag.delete({
+    where: {
+      id
+    }
+  });
+};
+
 export interface FlagData {
   name: string;
   description: string;
