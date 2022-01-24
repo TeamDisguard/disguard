@@ -45,8 +45,10 @@ app.use(cookieParser());
 app.use("/api/v1", v1Router);
 
 // Handle 404 Not Found errors
-app.use((_req, _res, next) => {
-  next(new ApiError(HttpCodes.NotFound));
+app.use((req, _res, next) => {
+  let url = req.url.split("?")[0];
+  if (url.endsWith("/")) url = url.slice(0, -1);
+  next(new ApiError(HttpCodes.NotFound).setInfo(`Route \`${url}\` not found.`));
 });
 
 // Convert errors into ApiErrors
