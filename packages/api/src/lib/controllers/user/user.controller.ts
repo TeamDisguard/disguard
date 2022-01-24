@@ -38,7 +38,7 @@ export const getUser = catchServerError(async (req, res, next) => {
   return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
 });
 
-export const searchUser = catchServerError(async (req, res, next) => {
+export const searchUser = catchServerError(async (_req, res) => {
   const { query } = res.locals;
 
   const users = await userService.searchUser(query.query, query.limit);
