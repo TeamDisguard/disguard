@@ -37,6 +37,22 @@ export const createFlag = async (data: FlagData) => {
   });
 };
 
+export const updateFlag = async (data: Partial<FlagData> & { id: string }) => {
+  const flag = await getFlag(data.id);
+  if (!flag) return null;
+
+  return Database.client().flag.update({
+    where: {
+      id: flag.id
+    },
+    data: {
+      name: data.name,
+      description: data.description,
+      color: data.color
+    }
+  });
+};
+
 export interface FlagData {
   name: string;
   description: string;
