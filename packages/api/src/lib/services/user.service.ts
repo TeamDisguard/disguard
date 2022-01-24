@@ -5,6 +5,8 @@ import { SitePermissions } from "#lib";
 import { endpoints } from "#consts";
 import axios from "axios";
 
+const snowflakeRegex = /^\d{18}$/;
+
 export const getSelf = async (
   token: string
 ): Promise<RESTGetAPICurrentUserResult | null> => {
@@ -26,6 +28,26 @@ export const getUser = (id: string) => {
     where: {
       id
     }
+  });
+};
+
+export const searchUser = async (query: string, limit: number) => {
+  const isSnowflake = snowflakeRegex.test(query);
+
+  if (isSnowflake) {
+    const user = await getUser(query);
+    return user ? [user] : [];
+  }
+
+  return Database.client().user.findMany({
+    orderBy: {
+      _relevance: {
+        fields: "username",
+        search: query,
+        sort: "asc"
+      }
+    },
+    take: limit
   });
 };
 
