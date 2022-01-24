@@ -34,3 +34,19 @@ export const createFlag = catchServerError(async (_req, res, next) => {
 
   return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
 });
+
+export const getFlag = catchServerError(async (req, res, next) => {
+  const { flagId } = req.params;
+
+  const flag = await flagService.getFlag(flagId);
+  if (!flag) return next(new ApiError(HttpCodes.NotFound).setInfo("Flag was not found."));
+
+  const data = new ApiResponseJson()
+    .set("id", flag.id)
+    .set("name", flag.name)
+    .set("description", flag.description)
+    .set("color", flag.color)
+    .set("created_at", flag.createdAt.toISOString());
+
+  return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
+});
