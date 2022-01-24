@@ -111,7 +111,7 @@ export const deleteMeSession = catchServerError(async (req, res, next) => {
 export const logout = catchServerError(async (_req, res, next) => {
   const isDeleted = await sessionService.deleteSession(
     res.locals.userId,
-    res.locals.sessionId
+    res.locals.session.id
   );
 
   if (!isDeleted) {
