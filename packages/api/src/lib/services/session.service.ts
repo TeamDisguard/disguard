@@ -40,9 +40,10 @@ export const getSession = (userId: string, version: string) => {
 };
 
 export const getSessionById = (id: string) => {
-  return Database.client().session.findUnique({
+  return Database.client().session.findFirst({
     where: {
-      id
+      id,
+      invalid: false
     }
   });
 };
@@ -50,7 +51,8 @@ export const getSessionById = (id: string) => {
 export const getSessionsForUser = (userId: string) => {
   return Database.client().session.findMany({
     where: {
-      userId
+      userId,
+      invalid: false
     }
   });
 };
@@ -59,9 +61,12 @@ export const deleteSession = async (userId: string, id: string) => {
   const session = await getSessionById(id);
   if (!session || session.userId !== userId) return null;
 
-  return Database.client().session.delete({
+  return Database.client().session.update({
     where: {
       id
+    },
+    data: {
+      invalid: true
     }
   });
 };
