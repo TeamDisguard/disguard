@@ -18,6 +18,10 @@ export const getFlagByName = (name: string) => {
   });
 };
 
+export const getFlags = () => {
+  return Database.client().flag.findMany();
+};
+
 export const createFlag = async (data: FlagData) => {
   const name = toTitleCase(data.name);
   const flag = await getFlagByName(name);
