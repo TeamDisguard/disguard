@@ -64,3 +64,21 @@ export const getFlags = catchServerError(async (_req, res) => {
 
   return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
 });
+
+export const updateFlag = catchServerError(async (req, res, next) => {
+  const { flagId } = req.params;
+  const { query } = res.locals;
+
+  const isUpdated = await flagService.updateFlag({
+    id: flagId,
+    name: query.name,
+    description: query.description,
+    color: query.color
+  });
+
+  if (!isUpdated) {
+    return next(new ApiError(HttpCodes.NotFound).setInfo("Session was not found."));
+  }
+
+  return new ApiResponse(HttpCodes.NoContent, res).send();
+});

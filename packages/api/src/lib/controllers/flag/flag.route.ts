@@ -1,6 +1,6 @@
 import { auth, permissions, SitePermissionFlags, validate } from "#lib";
+import { createFlagSchema, updateFlagSchema } from "./validations";
 import * as flagController from "./flag.controller";
-import { createFlagSchema } from "./validations";
 import { Router } from "express";
 
 const router = Router();
@@ -14,6 +14,14 @@ router.post(
   permissions(SitePermissionFlags.Administrator),
   validate(createFlagSchema),
   flagController.createFlag
+);
+
+router.patch(
+  "/:flagId",
+  auth,
+  permissions(SitePermissionFlags.Administrator),
+  validate(updateFlagSchema),
+  flagController.updateFlag
 );
 
 export default router;
