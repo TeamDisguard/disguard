@@ -2,8 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "./client"
+  provider        = "prisma-client-js"
+  output          = "./client"
   previewFeatures = ["fullTextSearch"]
 }
 
@@ -47,7 +47,6 @@ model Session {
   id String @id @db.VarChar(18)
 
   invalid Boolean @db.Boolean
-  device  String  @db.VarChar(255)
 
   accessToken  String @map("access_token") @db.VarChar(97)
   refreshToken String @map("refresh_token") @db.VarChar(97)
@@ -60,8 +59,23 @@ model Session {
   userId String @map("user_id")
   user   User   @relation("UserSession", fields: [userId], references: [id])
 
+  device Device?
+
   @@index([id])
   @@map("sessions")
+}
+
+model Device {
+  id String @id @db.VarChar(18)
+
+  system  String @db.VarChar(100)
+  browser String @db.VarChar(100)
+  version String @db.VarChar(100)
+
+  sessionId String  @unique @map("session_id") @db.VarChar(18)
+  session   Session @relation(fields: [sessionId], references: [id])
+
+  @@map("devices")
 }
 
 model Application {
