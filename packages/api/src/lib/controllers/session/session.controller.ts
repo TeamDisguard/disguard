@@ -35,7 +35,7 @@ export const getMeSessions = catchServerError(async (_req, res, next) => {
 });
 
 export const deleteMeSession = catchServerError(async (req, res, next) => {
-  if (req.params.sessionId === res.locals.sessionId) {
+  if (req.params.sessionId === res.locals.session.id) {
     return next(
       new ApiError(HttpCodes.BadRequest).setInfo("Cannot delete current session.")
     );
