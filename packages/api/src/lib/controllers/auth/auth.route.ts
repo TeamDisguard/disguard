@@ -7,10 +7,6 @@ const router = Router();
 router.get("/login", authController.login);
 router.get("/callback", authController.callback);
 
-router.get("/@me", auth, authController.getMe);
-router.get("/@me/sessions", auth, authController.getMeSessions);
-
-router.delete("/@me/sessions/:sessionId", auth, authController.deleteMeSession);
-router.post("/@me/sessions/logout", auth, authController.logout);
+router.post("/logout", auth, authController.logout);
 
 export default router;
