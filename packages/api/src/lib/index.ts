@@ -22,6 +22,7 @@ export * from "./services";
 
 // controllers
 export { default as AuthController } from "./controllers/auth/auth.route";
+export { default as SessionController } from "./controllers/session/session.route";
 export { default as FlagController } from "./controllers/flag/flag.route";
 export { default as UserController } from "./controllers/user/user.route";
 
