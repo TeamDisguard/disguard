@@ -35,7 +35,8 @@ export const validate = (schema: Record<string, ObjectSchema>) => {
       .validate(validationObject);
 
     if (error) {
-      return next(new ApiError(HttpCodes.BadRequest).setInfo(error.details[0].message));
+      const info = error.details?.[0].message;
+      return next(info ? new ApiError(HttpCodes.BadRequest).setInfo(info) : error);
     }
 
     res.locals = { ...res.locals, ...value };
