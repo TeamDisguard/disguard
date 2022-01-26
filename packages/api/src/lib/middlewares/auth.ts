@@ -41,9 +41,7 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
   const session = await sessionService.getSessionByUserIdAndVersion(userId, version);
 
   // Check invalid session
-  if (!session || session.invalid) {
-    return next(new ApiError(HttpCodes.Unauthorized));
-  }
+  if (!session || session.invalid) return next(new ApiError(HttpCodes.Unauthorized));
 
   // Check expired session
   if (await isExpiredSession(userId, session.id, session.expiresAt)) {
@@ -55,14 +53,16 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
   if (!isMatchedHash) return next(new ApiError(HttpCodes.Unauthorized));
 
   res.locals = {
-    userId: session.userId,
-    accessToken: decrypt(encryptionKey, session.accessToken),
-    refreshToken: decrypt(encryptionKey, session.refreshToken),
-    session: {
-      id: session.id,
-      device: session.device,
-      expiresAt: session.expiresAt,
-      createdAt: session.createdAt
+    auth: {
+      userId: session.userId,
+      accessToken: decrypt(encryptionKey, session.accessToken),
+      refreshToken: decrypt(encryptionKey, session.refreshToken),
+      session: {
+        id: session.id,
+        device: session.device,
+        expiresAt: session.expiresAt,
+        createdAt: session.createdAt
+      }
     }
   };
 
@@ -75,7 +75,9 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
  */
 export const permissions = (permissions: SitePermissionFlagsResolvable) => {
   return async (_req: Request, res: Response, next: NextFunction) => {
-    const user = await userService.getUserById(res.locals.userId);
+    const { userId } = res.locals.getOption("query");
+
+    const user = await userService.getUserById(userId);
     if (!user) return next(new ApiError(HttpCodes.Unauthorized));
 
     const userPermissions = new SitePermissions(user.sitePermissions);
