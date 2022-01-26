@@ -38,17 +38,8 @@ export const validate = (schema: Record<string, ObjectSchema>) => {
       return next(new ApiError(HttpCodes.BadRequest).setInfo(error.details[0].message));
     }
 
-    res.locals.options = () => value;
+    res.locals = { ...res.locals, ...value };
 
     return next();
   };
 };
-
-declare module "express" {
-  export interface Response {
-    locals: {
-      options<T extends string>(): Record<T, unknown>;
-      [key: string]: unknown;
-    };
-  }
-}
