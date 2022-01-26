@@ -3,12 +3,11 @@ import joi, { ObjectSchema } from "joi";
 import { ApiError } from "#lib";
 import { HttpCodes } from "#consts";
 
+/**
+ * Validates params using a schema
+ * @param schema The validation schema
+ */
 export const validate = (schema: ObjectSchema) => {
-  /**
-   * @param req The request
-   * @param res The response
-   * @param next The next function
-   */
   return async (req: Request, res: Response, next: NextFunction) => {
     const { value, error } = joi
       .compile(schema)

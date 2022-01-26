@@ -1,5 +1,9 @@
 import type { Details } from "express-useragent";
 
+/**
+ * Get the device from the user agent
+ * @param userAgent the request user agent
+ */
 export const getDevice = (userAgent?: Details) => {
   if (!userAgent) {
     return {

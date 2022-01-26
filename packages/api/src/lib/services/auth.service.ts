@@ -4,6 +4,10 @@ import { discord } from "#config";
 import { endpoints, grantTypes } from "#consts";
 import axios from "axios";
 
+/**
+ * Trades a Discord OAuth2 code with an access token
+ * @param code The Discord callback code
+ */
 export const authorizationCode = async (
   code: string
 ): Promise<RESTPostOAuth2AccessTokenResult | null> => {
@@ -27,3 +31,5 @@ export const authorizationCode = async (
     return null;
   }
 };
+
+// TODO: Handle refresh tokens

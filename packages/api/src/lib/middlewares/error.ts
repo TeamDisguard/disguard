@@ -3,7 +3,7 @@ import { ApiError, Logger } from "#lib";
 import { HttpCodes } from "#consts";
 
 /**
- * Converts an error into an ApiError
+ * Middleware for converting errors into ApiErrors
  * @param err The error to convert
  * @param _req The request
  * @param _res The response
@@ -29,11 +29,11 @@ export const convertError = (
 };
 
 /**
- * Handles an error
+ * Middleware for handling an error
  * @param err The error to handle
  * @param _req The request
  * @param res The response
- * @param next The next function
+ * @param _next The next function
  */
 export const handleError = (
   err: ApiError,

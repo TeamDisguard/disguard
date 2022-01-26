@@ -14,6 +14,7 @@ export class ApiError extends Error {
 
   /**
    * @param status The HTTP error code
+   * @param stack The error trace stack
    */
   public constructor(status: HttpCodes, stack?: string) {
     super();

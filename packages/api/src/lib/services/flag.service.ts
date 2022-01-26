@@ -2,7 +2,11 @@ import { Database } from "@disguard/database";
 import { DisguardSnowflake } from "@disguard/snowflake-engine";
 import { toTitleCase } from "#lib";
 
-export const getFlag = (id: string) => {
+/**
+ * Get a flag by id
+ * @param id The id of the flag
+ */
+export const getFlagById = (id: string) => {
   return Database.client().flag.findUnique({
     where: {
       id
@@ -10,6 +14,10 @@ export const getFlag = (id: string) => {
   });
 };
 
+/**
+ * Get a flag by name
+ * @param name The name of the flag
+ */
 export const getFlagByName = (name: string) => {
   return Database.client().flag.findUnique({
     where: {
@@ -18,10 +26,17 @@ export const getFlagByName = (name: string) => {
   });
 };
 
+/**
+ * Get all flags
+ */
 export const getFlags = () => {
   return Database.client().flag.findMany();
 };
 
+/**
+ * Create a flag
+ * @param data The flag create data
+ */
 export const createFlag = async (data: FlagData) => {
   const name = toTitleCase(data.name);
   const flag = await getFlagByName(name);
@@ -37,8 +52,12 @@ export const createFlag = async (data: FlagData) => {
   });
 };
 
+/**
+ * Update a flag
+ * @param data The flag update data
+ */
 export const updateFlag = async (data: Partial<FlagData> & { id: string }) => {
-  const flag = await getFlag(data.id);
+  const flag = await getFlagById(data.id);
   if (!flag) return null;
 
   const name = toTitleCase(data.name ?? "");
@@ -60,9 +79,15 @@ export const updateFlag = async (data: Partial<FlagData> & { id: string }) => {
   });
 };
 
+/**
+ * Delete a flag
+ * @param id The id of the flag
+ */
 export const deleteFlag = async (id: string) => {
-  const flag = await getFlag(id);
+  const flag = await getFlagById(id);
   if (!flag) return null;
+
+  // TODO: check if there are reports with this flag
 
   return Database.client().flag.delete({
     where: {

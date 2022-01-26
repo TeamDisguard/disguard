@@ -38,7 +38,7 @@ export const createFlag = catchServerError(async (_req, res, next) => {
 export const getFlag = catchServerError(async (req, res, next) => {
   const { flagId } = req.params;
 
-  const flag = await flagService.getFlag(flagId);
+  const flag = await flagService.getFlagById(flagId);
   if (!flag) return next(new ApiError(HttpCodes.NotFound).setInfo("Flag was not found."));
 
   const data = new ApiResponseJson()

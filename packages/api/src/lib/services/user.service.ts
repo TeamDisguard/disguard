@@ -1,12 +1,14 @@
 import type { RESTGetAPICurrentUserResult } from "discord-api-types/rest/v9";
 import type { User } from "@disguard/prisma/src/client";
+import { endpoints, snowflakeRegex } from "#consts";
 import { Database } from "@disguard/database";
 import { SitePermissions } from "#lib";
-import { endpoints } from "#consts";
 import axios from "axios";
 
-const snowflakeRegex = /^\d{18}$/;
-
+/**
+ * Get the Discord user for the associated access token
+ * @param token The user access token
+ */
 export const getSelf = async (
   token: string
 ): Promise<RESTGetAPICurrentUserResult | null> => {
@@ -23,7 +25,11 @@ export const getSelf = async (
   }
 };
 
-export const getUser = (id: string) => {
+/**
+ * Get a user by id
+ * @param id The id of the user
+ */
+export const getUserById = (id: string) => {
   return Database.client().user.findUnique({
     where: {
       id
@@ -31,11 +37,16 @@ export const getUser = (id: string) => {
   });
 };
 
+/**
+ * Search for a user by id or username
+ * @param query The username or id query
+ * @param limit The max results to return
+ */
 export const searchUser = async (query: string, limit: number) => {
   const isSnowflake = snowflakeRegex.test(query);
 
   if (isSnowflake) {
-    const user = await getUser(query);
+    const user = await getUserById(query);
     return user ? [user] : [];
   }
 
@@ -51,6 +62,10 @@ export const searchUser = async (query: string, limit: number) => {
   });
 };
 
+/**
+ * Upsert a user
+ * @param data The upsert user data
+ */
 export const upsertUser = (data: UserData): Promise<User> => {
   return Database.client().user.upsert({
     where: {

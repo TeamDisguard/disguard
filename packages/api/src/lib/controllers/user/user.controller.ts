@@ -9,7 +9,7 @@ import {
 import { HttpCodes } from "#consts";
 
 export const getMe = catchServerError(async (_req, res, next) => {
-  const user = await userService.getUser(res.locals.userId);
+  const user = await userService.getUserById(res.locals.userId);
   if (!user) return next(new Error("Missing auth user"));
 
   const data = new ApiResponseJson()
@@ -25,7 +25,7 @@ export const getMe = catchServerError(async (_req, res, next) => {
 export const getUser = catchServerError(async (req, res, next) => {
   const { userId } = req.params;
 
-  const user = await userService.getUser(userId);
+  const user = await userService.getUserById(userId);
   if (!user) return next(new ApiError(HttpCodes.NotFound).setInfo("User was not found."));
 
   const data = new ApiResponseJson()
