@@ -47,7 +47,7 @@ app.use("/api/v1", v1Router);
 // Handle 404 Not Found errors
 app.use((req, _res, next) => {
   let url = req.url.split("?")[0];
-  if (url.endsWith("/")) url = url.slice(0, -1);
+  if (url !== "/" && url.endsWith("/")) url = url.slice(0, -1);
   next(new ApiError(HttpCodes.NotFound).setInfo(`Route \`${url}\` not found.`));
 });
 
