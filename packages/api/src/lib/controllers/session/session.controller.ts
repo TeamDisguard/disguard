@@ -9,7 +9,7 @@ import {
 import { HttpCodes } from "#consts";
 
 export const getMe = catchServerError(async (_req, res) => {
-  const { session } = res.locals;
+  const { session } = res.locals.auth;
 
   const device = {
     system: session.device?.system ?? "Unknown",
@@ -27,7 +27,9 @@ export const getMe = catchServerError(async (_req, res) => {
 });
 
 export const getMeSessions = catchServerError(async (_req, res, next) => {
-  const sessions = await sessionService.getSessionsForUser(res.locals.userId);
+  const { userId } = res.locals.auth;
+
+  const sessions = await sessionService.getSessionsForUser(userId);
   if (!sessions.length) return next(new ApiError(HttpCodes.Unauthorized));
 
   const data = sessions.map((session) => ({
@@ -44,21 +46,16 @@ export const getMeSessions = catchServerError(async (_req, res, next) => {
   return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
 });
 
-export const deleteMeSession = catchServerError(async (req, res, next) => {
-  if (req.params.sessionId === res.locals.session.id) {
-    return next(
-      new ApiError(HttpCodes.BadRequest).setInfo("Cannot delete current session.")
-    );
+export const deleteMeSession = catchServerError(async (req, res) => {
+  const { userId, session } = res.locals.auth;
+  const { sessionId } = res.locals.params;
+
+  if (req.params.sessionId === session.id) {
+    throw new ApiError(HttpCodes.BadRequest).setInfo("Cannot delete current session.");
   }
 
-  const isDeleted = await sessionService.deleteSession(
-    res.locals.userId,
-    req.params.sessionId
-  );
-
-  if (!isDeleted) {
-    return next(new ApiError(HttpCodes.NotFound).setInfo("Session was not found."));
-  }
+  const deleted = await sessionService.deleteSession(userId, sessionId);
+  if (!deleted) throw new ApiError(HttpCodes.NotFound).setInfo("Session was not found.");
 
   return new ApiResponse(HttpCodes.NoContent, res).send();
 });
