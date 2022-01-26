@@ -2,41 +2,31 @@ import {
   ApiError,
   ApiResponse,
   catchServerError,
-  getDevice,
   authService,
   userService,
-  sessionService
+  sessionService,
+  getDevice
 } from "#lib";
 
 import { HttpCodes, oauth2Url } from "#consts";
-import { OAuth2Scopes } from "discord-api-types";
+import { OAuth2Scopes } from "discord-api-types/v9";
 
 export const login = catchServerError(async (_req, res) => {
   return res.redirect(oauth2Url);
 });
 
 export const callback = catchServerError(async (req, res) => {
-  const { error, code } = req.query;
+  const { error, code } = res.locals.query;
 
-  if (typeof error === "string") {
-    return res.redirect("/api/v1/auth/login");
-  }
-
-  if (typeof code !== "string") {
-    throw new ApiError(HttpCodes.Forbidden);
-  }
+  if (error) return res.redirect("/api/v1/auth/login");
 
   const auth = await authService.authorizationCode(code);
-
   if (!auth || !auth.scope.includes(OAuth2Scopes.Identify)) {
-    throw new ApiError(HttpCodes.Forbidden).setInfo("Missing `identify` scope.");
+    throw new ApiError(HttpCodes.Forbidden).setInfo("Invalid OAuth2 code.");
   }
 
   const selfUser = await userService.getSelf(auth.access_token);
-
-  if (!selfUser) {
-    throw new ApiError(HttpCodes.Unauthorized);
-  }
+  if (!selfUser) throw new ApiError(HttpCodes.Unauthorized);
 
   const user = await userService.upsertUser({
     id: selfUser.id,
@@ -53,26 +43,20 @@ export const callback = catchServerError(async (req, res) => {
     device: getDevice(req.useragent)
   });
 
-  res.cookie("session", session.token, {
-    path: "/",
-    httpOnly: true,
-    maxAge: auth.expires_in * 1000
-  });
-
-  res.redirect("/");
+  return res
+    .cookie("session", session.token, {
+      path: "/",
+      httpOnly: true,
+      maxAge: auth.expires_in * 1000
+    })
+    .redirect("/");
 });
 
-export const logout = catchServerError(async (_req, res, next) => {
-  const isDeleted = await sessionService.deleteSession(
-    res.locals.userId,
-    res.locals.session.id
-  );
+export const logout = catchServerError(async (_req, res) => {
+  const { userId, session } = res.locals.auth;
 
-  if (!isDeleted) {
-    return next(new ApiError(HttpCodes.NotFound).setInfo("Session was not found."));
-  }
+  const deleted = await sessionService.deleteSession(userId, session.id);
+  if (!deleted) throw new ApiError(HttpCodes.NotFound).setInfo("Session was not found.");
 
-  res.clearCookie("session");
-
-  return new ApiResponse(HttpCodes.NoContent, res).send();
+  return new ApiResponse(HttpCodes.NoContent, res.clearCookie("session")).send();
 });

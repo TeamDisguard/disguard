@@ -1,12 +1,13 @@
-import * as authController from "./auth.controller";
+import { login, callback, logout } from "./auth.controller";
+import { callbackSchema } from "./validations";
 import { Router } from "express";
-import { auth } from "#lib";
+import { auth, validate } from "#lib";
 
 const router = Router();
 
-router.get("/login", authController.login);
-router.get("/callback", authController.callback);
+router.get("/login", login);
+router.get("/callback", validate(callbackSchema), callback);
 
-router.post("/@me/logout", auth, authController.logout);
+router.post("/@me/logout", auth, logout);
 
 export default router;
