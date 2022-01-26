@@ -1,7 +1,7 @@
 import { login, callback, logout } from "./auth.controller";
 import { callbackSchema } from "./validations";
-import { Router } from "express";
 import { auth, validate } from "#lib";
+import { Router } from "express";
 
 const router = Router();
 
