@@ -11,9 +11,15 @@ import { HttpCodes } from "#consts";
 export const getMe = catchServerError(async (_req, res) => {
   const { session } = res.locals;
 
+  const device = {
+    system: session.device?.system ?? "Unknown",
+    browser: session.device?.browser ?? "Unknown",
+    version: session.device?.version ?? "Unknown"
+  };
+
   const data = new ApiResponseJson()
     .set("id", session.id)
-    .set("device", session.device)
+    .set("device", device)
     .set("expires_at", session.expiresAt.toISOString())
     .set("created_at", session.createdAt.toISOString());
 
@@ -26,7 +32,11 @@ export const getMeSessions = catchServerError(async (_req, res, next) => {
 
   const data = sessions.map((session) => ({
     id: session.id,
-    device: session.device,
+    device: {
+      system: session.device?.system ?? "Unknown",
+      browser: session.device?.browser ?? "Unknown",
+      version: session.device?.version ?? "Unknown"
+    },
     expires_at: session.expiresAt.toISOString(),
     created_at: session.createdAt.toISOString()
   }));
