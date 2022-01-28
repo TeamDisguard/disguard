@@ -10,6 +10,7 @@
     "redis",
     "logger",
     "database",
-    "api"
+    "api",
+    "assets"
   ]
 }
