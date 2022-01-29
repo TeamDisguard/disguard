@@ -85,8 +85,8 @@ export const createSession = async (data: SessionData) => {
     data: {
       id: DisguardSnowflake.generate(),
       invalid: false,
-      accessToken: encrypt(encryptionKey, data.accessToken),
-      refreshToken: encrypt(encryptionKey, data.refreshToken),
+      accessToken: data.accessToken ? encrypt(encryptionKey, data.accessToken) : null,
+      refreshToken: data.refreshToken ? encrypt(encryptionKey, data.refreshToken) : null,
       token: token.saltedHash,
       version: token.version,
       expiresAt,
@@ -133,8 +133,8 @@ export interface DeviceData {
 
 export interface SessionData {
   userId: string;
-  accessToken: string;
-  refreshToken: string;
+  accessToken: string | null;
+  refreshToken: string | null;
   expiresIn: number;
   device: Omit<DeviceData, "sessionId">;
 }
