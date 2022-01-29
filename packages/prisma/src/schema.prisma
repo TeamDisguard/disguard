@@ -48,10 +48,10 @@ model Session {
 
   invalid Boolean @db.Boolean
 
-  accessToken  String @map("access_token") @db.VarChar(97)
-  refreshToken String @map("refresh_token") @db.VarChar(97)
-  token        String @db.Char(60)
-  version      String @db.Char(8)
+  accessToken  String? @map("access_token") @db.VarChar(97)
+  refreshToken String? @map("refresh_token") @db.VarChar(97)
+  token        String  @db.Char(60)
+  version      String  @db.Char(8)
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   expiresAt DateTime @map("expires_at") @db.Timestamp()
@@ -85,7 +85,7 @@ model Application {
 
   requestCount        Int      @map("request_count") @db.Integer
   requestLimit        Int      @map("request_limit") @db.Integer
-  requestLimitResetAt DateTime @map("request_limit_reset_at") @db.Timestamp()
+  requestCountResetAt DateTime @map("request_count_reset_at") @db.Timestamp()
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp()
