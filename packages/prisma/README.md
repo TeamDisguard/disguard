@@ -15,3 +15,7 @@
 # npm 
 > npm i -D @disguard/prisma
 ```
+
+# Schema
+
+<img src="https://github.com/TeamDisguard/disguard/blob/master/packages/prisma/src/erd.svg" align="center" width="100%" alt="">
