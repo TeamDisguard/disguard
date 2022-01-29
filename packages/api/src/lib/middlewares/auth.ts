@@ -55,8 +55,12 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
   res.locals = {
     auth: {
       userId: session.userId,
-      accessToken: decrypt(encryptionKey, session.accessToken),
-      refreshToken: decrypt(encryptionKey, session.refreshToken),
+      accessToken: session.accessToken
+        ? decrypt(encryptionKey, session.accessToken)
+        : null,
+      refreshToken: session.refreshToken
+        ? decrypt(encryptionKey, session.refreshToken)
+        : null,
       session: {
         id: session.id,
         device: session.device,
