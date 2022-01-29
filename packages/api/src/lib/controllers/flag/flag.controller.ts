@@ -8,35 +8,8 @@ import {
 
 import { HttpCodes } from "#consts";
 
-export const createFlag = catchServerError(async (_req, res, next) => {
-  const { query } = res.locals;
-
-  const flag = await flagService.createFlag({
-    name: query.name,
-    description: query.description,
-    color: query.color
-  });
-
-  if (!flag) {
-    return next(
-      new ApiError(HttpCodes.Conflict).setInfo(
-        `A flag with name \`${query.name}\` already exists`
-      )
-    );
-  }
-
-  const data = new ApiResponseJson()
-    .set("id", flag.id)
-    .set("name", flag.name)
-    .set("description", flag.description)
-    .set("color", flag.color)
-    .set("created_at", flag.createdAt.toISOString());
-
-  return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
-});
-
-export const getFlag = catchServerError(async (req, res, next) => {
-  const { flagId } = req.params;
+export const getFlag = catchServerError(async (_req, res, next) => {
+  const { flagId } = res.locals.params;
 
   const flag = await flagService.getFlagById(flagId);
   if (!flag) return next(new ApiError(HttpCodes.NotFound).setInfo("Flag was not found."));
@@ -65,16 +38,34 @@ export const getFlags = catchServerError(async (_req, res) => {
   return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
 });
 
-export const updateFlag = catchServerError(async (req, res, next) => {
-  const { flagId } = req.params;
-  const { query } = res.locals;
+export const createFlag = catchServerError(async (_req, res, next) => {
+  const { name, description, color } = res.locals.query;
 
-  const isUpdated = await flagService.updateFlag({
-    id: flagId,
-    name: query.name,
-    description: query.description,
-    color: query.color
-  });
+  const flag = await flagService.createFlag({ name, description, color });
+
+  if (!flag) {
+    return next(
+      new ApiError(HttpCodes.Conflict).setInfo(
+        `A flag with name \`${name}\` already exists`
+      )
+    );
+  }
+
+  const data = new ApiResponseJson()
+    .set("id", flag.id)
+    .set("name", flag.name)
+    .set("description", flag.description)
+    .set("color", flag.color)
+    .set("created_at", flag.createdAt.toISOString());
+
+  return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
+});
+
+export const updateFlag = catchServerError(async (_req, res, next) => {
+  const { flagId: id } = res.locals.params;
+  const { name, description, color } = res.locals.query;
+
+  const isUpdated = await flagService.updateFlag({ id, name, description, color });
 
   if (isUpdated === null) {
     return next(new ApiError(HttpCodes.NotFound).setInfo("Flag was not found."));
@@ -83,7 +74,7 @@ export const updateFlag = catchServerError(async (req, res, next) => {
   if (isUpdated === undefined) {
     return next(
       new ApiError(HttpCodes.Conflict).setInfo(
-        `A flag with name \`${query.name}\` already exists`
+        `A flag with name \`${name}\` already exists`
       )
     );
   }
@@ -91,8 +82,8 @@ export const updateFlag = catchServerError(async (req, res, next) => {
   return new ApiResponse(HttpCodes.NoContent, res).send();
 });
 
-export const deleteFlag = catchServerError(async (req, res, next) => {
-  const { flagId } = req.params;
+export const deleteFlag = catchServerError(async (_req, res, next) => {
+  const { flagId } = res.locals.params;
 
   const isDeleted = await flagService.deleteFlag(flagId);
 
