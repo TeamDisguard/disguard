@@ -9,7 +9,9 @@ import {
 import { HttpCodes } from "#consts";
 
 export const getMe = catchServerError(async (_req, res, next) => {
-  const user = await userService.getUserById(res.locals.userId);
+  const { userId } = res.locals.auth;
+
+  const user = await userService.getUserById(userId);
   if (!user) return next(new Error("Missing auth user"));
 
   const data = new ApiResponseJson()
@@ -22,8 +24,8 @@ export const getMe = catchServerError(async (_req, res, next) => {
   return new ApiResponse(HttpCodes.Ok, res).setData(data).send();
 });
 
-export const getUser = catchServerError(async (req, res, next) => {
-  const { userId } = req.params;
+export const getUser = catchServerError(async (_req, res, next) => {
+  const { userId } = res.locals.params;
 
   const user = await userService.getUserById(userId);
   if (!user) return next(new ApiError(HttpCodes.NotFound).setInfo("User was not found."));
@@ -39,9 +41,9 @@ export const getUser = catchServerError(async (req, res, next) => {
 });
 
 export const searchUser = catchServerError(async (_req, res) => {
-  const { query } = res.locals;
+  const { query, limit } = res.locals.query;
 
-  const users = await userService.searchUser(query.query, query.limit);
+  const users = await userService.searchUser(query, limit);
 
   const data = users.map((user) => ({
     id: user.id,
