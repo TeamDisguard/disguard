@@ -75,7 +75,7 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
  */
 export const permissions = (permissions: SitePermissionFlagsResolvable) => {
   return async (_req: Request, res: Response, next: NextFunction) => {
-    const { userId } = res.locals.getOption("query");
+    const { userId } = res.locals.auth;
 
     const user = await userService.getUserById(userId);
     if (!user) return next(new ApiError(HttpCodes.Unauthorized));
