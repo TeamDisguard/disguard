@@ -4,6 +4,11 @@ import { host, discord } from "#config";
 
 export const snowflakeRegex = /^\d{18,20}$/;
 
+export const defaults = {
+  requestLimit: 500,
+  applicationSessionTokenExpiresIn: 1000 * 60 * 60 * 24 * 365.25 * 5 // 5 years
+};
+
 export const endpoints = {
   authorize: "https://discord.com/api/oauth2/authorize",
   token: "https://discord.com/api/oauth2/token",
