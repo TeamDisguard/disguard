@@ -60,7 +60,7 @@ export const updateFlag = async (data: Partial<FlagData> & { id: string }) => {
   const flag = await getFlagById(data.id);
   if (!flag) return null;
 
-  const name = toTitleCase(data.name ?? "");
+  const name = data.name ? toTitleCase(data.name) : undefined;
 
   if (name && flag.name !== name) {
     const existingFlag = await getFlagByName(name);
