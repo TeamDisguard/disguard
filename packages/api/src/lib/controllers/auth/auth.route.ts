@@ -8,6 +8,6 @@ const router = Router();
 router.get("/login", login);
 router.get("/callback", validate(callbackSchema), callback);
 
-router.post("/@me/logout", auth, logout);
+router.post("/logout", auth, logout);
 
 export default router;
